@@ -1,90 +1,44 @@
+/**
+ * loads sub modules and wraps them up into the main module.
+ * This should be used for top-level module definitions only.
+ */
 define([
     'angular',
     'angularUiRouter',
-    'uiRouterExtras',
-    'uiRouterExtrasStatevis',
-    'ocLazyLoad',
-    'modules/core/module',
-    'modules/core/settings',
-    'modules/core/state'
-], function (angular) {
-
+    'ocLazyLoad'
+], function (angular, depResolver) {
     'use strict';
+    console.info('app.config 1', depResolver);
 
-    return angular.module('futureStates',
-        [
-            'ui.router',
-            'ct.ui.router.extras',
-            'ct.ui.router.extras.examples.statevis',
-            'oc.lazyLoad',
-            'futureStates.core',
-            'futureStates.states.core'
-        ]).config([
-            '$ocLazyLoadProvider',
-            '$futureStateProvider',
-            'SettingsServiceProvider',
-            function($ocLazyLoadProvider,
-                     $futureStateProvider,
-                     SettingsServiceProvider) {
+    var app = angular.module('app', [ 'ui.router', 'oc.lazyLoad' ]);
 
-                $ocLazyLoadProvider.config ({
-                    debug: true,
-                    jsLoader: requirejs,
-                    loadedModules: ['futureStates'],
-                    modules: [{
-                        reconfig: true,
-                        name: 'futureStates.states.orange',
-                        files: ['modules/orange/state']
-                    }, {
-                        reconfig: true,
-                        name: 'futureStates.states.apple',
-                        files: ['modules/apple/state']
-                    }]
-                });
+    app.config(function ($urlRouterProvider, $stateProvider ) {
+        $urlRouterProvider.otherwise('/home');
+        $stateProvider
+            .state('home',{
+                url:'/home',
+                templateUrl:'js/modules/home/home.html',
+                controller:'HomeController',
+                resolve:{
+                    homeController:function($ocLazyLoad){
+                        console.log('state home resolve');
+                        return $ocLazyLoad.load('modules/core/home');
+                    }
+                }
 
-                var ocLazyLoadStateFactory = function ($q, $ocLazyLoad, futureState) {
-                    var deferred = $q.defer();
-                    $ocLazyLoad.load(futureState.module).then(function(name) {
-                        deferred.resolve();
-                    }, function() {
-                        deferred.reject();
-                    });
-                    return deferred.promise;
-                };
+            })
+            .state('login',{
+                url: '/login',
+                templateUrl: 'js/modules/login/login.html',
+                controller: 'LoginController ',
+                resolve: {
+                    LoginController : function($ocLazyLoad){
+                        return $ocLazyLoad.load('modules/login/loginController') ;
+                    }
+                }
+            });
+//        $urlRouterProvider.deferIntercept();
+    });
 
-                $futureStateProvider.stateFactory('ocLazyLoad', ocLazyLoadStateFactory);
-
-                $futureStateProvider.addResolve(function ($injector) {
-                    /**
-                     * NOTE: resolves can be used for determining
-                     * which future states you actually want.
-                     * Here, we register both apples and oranges.
-                     * Try uncommenting the if/else to see
-                     * the magic of provider injected logic
-                     *
-                     * Important thing to remember: in addResolve, you have
-                     * to "return" the thenable promise chain if you want it
-                     * to actually wait on your provider's resolution.
-                     */
-                    return $injector.invoke(SettingsServiceProvider.fruit).then(
-                        function (fruitResult) {
-//                            if (fruitResult === 'oranges') {
-                            $futureStateProvider.futureState({
-                                'stateName': 'app.orange',
-                                'urlPrefix': '/orange',
-                                'type': 'ocLazyLoad',
-                                'module': 'futureStates.states.orange'
-                            });
-//                            } else if (fruitResult === 'apples') {
-                            $futureStateProvider.futureState({
-                                'stateName': 'app.apple',
-                                'urlPrefix': '/apple',
-                                'type': 'ocLazyLoad',
-                                'module': 'futureStates.states.apple'
-                            });
-//                            }
-                        }
-                    );
-                });
-            }]);
+    return app;
 });

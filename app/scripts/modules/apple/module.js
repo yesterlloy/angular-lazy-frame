@@ -8,5 +8,5 @@ define([
 
     'use strict';
 
-    return angular.module('futureStates.apple', ['ngSanitize', 'ngResource']);
+    return angular.module('app.apple', ['ngSanitize', 'ngResource']);
 });

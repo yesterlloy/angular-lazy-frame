@@ -8,5 +8,5 @@ define([
 
     'use strict';
 
-    return angular.module('futureStates.core', ['ngSanitize', 'ngResource']);
+    return angular.module('app.core', ['ngSanitize', 'ngResource']);
 });

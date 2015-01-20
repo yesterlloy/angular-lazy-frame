@@ -1,13 +1,13 @@
 define([
 
     'angularUiRouter',    
-    './home',    
+    './home',
 
 ], function() {
 
     'use strict';
 
-    angular.module('futureStates.states.core', [
+    angular.module('app.states.home', [
         'ui.router',        
     ]).config([
             '$stateProvider',
@@ -21,7 +21,13 @@ define([
         $stateProvider
             .state('app', {
                 abstract: true,
-                template: '<ui-view/>'
+                template: '<ui-view/>',
+                resolve: {
+                    authorize: ['authorization', function(authorization) {
+                            return authorization.authorize();
+                        }
+                    ]
+                }
             })
             .state('app.home', {
                 url: '/',

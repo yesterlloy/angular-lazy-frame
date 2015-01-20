@@ -8,9 +8,9 @@ define([
 
     'use strict';
 
-    angular.module('futureStates.states.apple', [
+    angular.module('app.states.apple', [
         'ui.router',
-        'futureStates.apple'
+        'app.apple'
     ]).config([
             '$stateProvider',
             '$urlRouterProvider',

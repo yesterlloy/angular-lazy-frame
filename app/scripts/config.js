@@ -26,7 +26,10 @@ require.config({
     },
 
     shim: {
-        angular: { deps: ['jquery'], exports: 'angular' },        
+        angular: {
+//            deps: ['jquery'],
+            exports: 'angular'
+        },
         angularResource: { deps: ['angular'] },
         angularSanitize: { deps: ['angular'] },
         angularUiRouter: {deps: ['angular']},
