@@ -8,7 +8,10 @@ require.config({
     baseUrl: 'scripts/',
 
     paths: {
-        angular: 'libs/angular/angular',        
+        angular: 'libs/angular/angular',
+        angularAMD: "libs/angularAMD/angularAMD",
+        ngload: "libs/angularAMD/ngload",
+
         angularResource: 'libs/angular-resource/angular-resource',
         angularSanitize: 'libs/angular-sanitize/angular-sanitize.min',
         angularUiRouter: 'libs/angular-ui-router/angular-ui-router',

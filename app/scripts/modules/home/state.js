@@ -1,15 +1,12 @@
 define([
 
-    'angularUiRouter',    
-    './home',
+    'angular'
 
-], function() {
+], function(angular) {
 
     'use strict';
 
-    angular.module('app.states.home', [
-        'ui.router',        
-    ]).config([
+    angular.module('app').config([
             '$stateProvider',
             '$urlRouterProvider',
             '$urlMatcherFactoryProvider',

@@ -1,10 +1,10 @@
 /**
  * Home controller definition
  */
-define(['./module', './loginService'], function (module) {
+define(['angular', './userService'], function (angular) {
     'use strict';
 
-    module.controller('LoginController', function ($scope, $rootScope, UserService, $q) {
+    angular.module('app').controller('UserController', function ($scope, $rootScope, UserService, $q) {
         var userService = $scope.userService = UserService;
         $scope.username='ad';
         $scope.password;

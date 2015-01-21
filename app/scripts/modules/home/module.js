@@ -1,12 +1,10 @@
 define([
 
-    'angular',
-    'angularSanitize',
-    'angularResource'
+    'angular'
 
 ], function (angular) {
 
     'use strict';
 
-    return angular.module('app.core', ['ngSanitize', 'ngResource']);
+    return angular.module('app', []);
 });

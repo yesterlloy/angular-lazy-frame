@@ -1,8 +1,8 @@
 define([
 
-    './module'    
+    'angular'
 
-], function(coreModule) {
+], function(angular) {
 
     'use strict';
 
@@ -14,5 +14,5 @@ define([
 		};
     };    
 
-    coreModule.controller('HomeCtrl', ['$rootScope', '$scope', '$state', '$timeout', controller]);
+    angular.module('app').controller('HomeCtrl', ['$rootScope', '$scope', '$state', '$timeout', controller]);
 });
