@@ -3,16 +3,16 @@ define([
 ], function () {
   'use strict';
 
-  return angular.module('app', []) .config(function ($stateProvider) {
+  return angular.module('user', []) .config(function () {
 
+      /*
     $stateProvider
-      .state('login', {
+      .state('user.setting', {
         url: '/login',
         templateUrl: 'js/modules/user/login.html',
         controller:'UserController'
       });
+       */
   });
-
-
 
 });

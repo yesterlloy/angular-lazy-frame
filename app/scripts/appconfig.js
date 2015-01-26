@@ -4,13 +4,13 @@
 define([
 
     'app',
-    'principal',
-    'authorization'
+    'routingConfig',
+    'authService'
 
-], function(app){
+], function(app, routingConfig, Auth){
 
     app.config(appConfig)
-        .run(['$rootScope', '$state', '$stateParams', 'authorization', 'principal',appRun ]);
+        .run(['$rootScope', '$state', '$stateParams', 'routingConfig', 'Auth',appRun ]);
 
 
     function appConfig($urlRouterProvider, $stateProvider, $ocLazyLoadProvider ) {
@@ -18,11 +18,10 @@ define([
             jsLoader: requirejs,
             debug: true
         });
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/login');
         $stateProvider
             .state('site', {
                 abstract: true,
-                template: '<ui-view/>',
                 resolve: {
                     authorize: ['authorization', function(authorization) {
                         console.info('appconfig state site', authorization);
@@ -33,62 +32,78 @@ define([
             })
             .state('home',{
                 url:'/home',
-                templateUrl:'scripts/modules/home/home.html',
-                controller:function(HomeCtrl){
-                    console.info('homectrl',HomeCtrl);
+                parent: 'site',
+                data: {
+                    roles: ['admin']
                 },
+                views: {
+                    topNav: {  },
+                    footer: {  }
+                },
+                templateUrl:'scripts/modules/home/home.html',
+                controller:'HomeCtrl',
                 resolve:{
-                    HomeCtrl:'scripts/modules/home/home.js'
-                    /*
-                    ,
                     HomeCtrl:['$ocLazyLoad', function($ocLazyLoad){
-                        console.info('state home resolve', $ocLazyLoad);
-
-//                        var ocl = $ocLazyLoad.load({
-//                            name:'app',
-//                            files: [ 'scripts/modules/home/home.js']
-//                        });
-                        require('scripts/modules/home/home.js',function(rs){
-
-                            console.info('state home resolve over', rs);
-                            return rs;
+                        return $ocLazyLoad.load({
+                            name:'app',
+                            files: [ 'scripts/modules/home/home.js']
                         });
                     }]
-                     */
 
                 }
 
             })
             .state('login',{
+                parent: 'site',
                 url: '/login',
-                templateUrl: 'js/modules/login/login.html',
-                controller: 'LoginController ',
+                data: {
+                    roles: []
+                },
+                templateUrl: 'scripts/modules/login/login.html',
+                controller: 'LoginCtrl ',
                 resolve: {
-                    LoginController : function($ocLazyLoad){
-                        return $ocLazyLoad.load('modules/login/loginController') ;
-                    }
+                    loginCtrl:['$ocLazyLoad', function($ocLazyLoad){
+                        return $ocLazyLoad.load({
+                            name:'app',
+                            files: [ 'scripts/modules/login/login.js']
+                        });
+                    }]
                 }
             });
 //        $urlRouterProvider.deferIntercept();
     }
-    function appRun ($rootScope, $state, $stateParams, authorization, principal) {
+    function appRun ($rootScope, $state, $stateParams, routingConfig, Auth) {
 
         console.log('run');
-        $rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
-            console.info('state change ',toState);
-            console.info('state change principal', principal);
-            console.info('state change authorization', authorization);
-            console.log(principal.isIdentityResolved());
+
+        //debug ui-router lifecycle
+        $rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){
+            console.log('$stateChangeStart to '+toState.to+'- fired when the transition begins. toState,toParams : \n',toState, toParams);
+
             // track the state the user wants to go to; authorization service needs this
             $rootScope.toState = toState;
-            $rootScope.toStateParams = toStateParams;
+            $rootScope.toStateParams = toParams;
             // if the principal is resolved, do an authorization check immediately. otherwise,
             // it'll be done when the state it resolved.
             if (principal.isIdentityResolved())
                 authorization.authorize();
-            else{
-//                        principal.
-            }
+        });
+        $rootScope.$on('$stateChangeError',function(event, toState, toParams, fromState, fromParams){
+            console.info('$stateChangeError', arguments);
+        });
+        $rootScope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
+            console.log('$stateChangeSuccess to '+toState.name+'- fired once the state transition is complete.');
+        });
+// $rootScope.$on('$viewContentLoading',function(event, viewConfig){
+//   // runs on individual scopes, so putting it in "run" doesn't work.
+//   console.log('$viewContentLoading - view begins loading - dom not rendered',viewConfig);
+// });
+        $rootScope.$on('$viewContentLoaded',function(event){
+            console.log('$viewContentLoaded - fired after dom rendered',event);
+        });
+        $rootScope.$on('$stateNotFound',function(event, unfoundState, fromState, fromParams){
+            console.log('$stateNotFound '+unfoundState.to+'  - fired when a state cannot be found by its name.');
+            console.log(unfoundState, fromState, fromParams);
         });
 
     }
@@ -96,3 +111,5 @@ define([
 
 
 });
+
+

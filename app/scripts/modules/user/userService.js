@@ -5,7 +5,7 @@ define(['./module'], function (module) {
   	'use strict';
 
 
-	module.service('LoginService', function ( $rootScope, $q, $state) {
+	module.service('UserService', function ( $rootScope, $q, $state) {
 		var userService = {};
 
 		var user = $rootScope.user = {};
@@ -18,11 +18,19 @@ define(['./module'], function (module) {
 			}
 		};
 
-		userService.handleLogin = function(){
-			$state.go('login');
-			
+		function handleLogin (username, password){
+            var loginDeffer = $q.deffer();
+            if(username == 'admin' && password == 'admin'){
+                loginDeffer.resolve({name:'admin',roles:['admin']});
+            }else{
+                loginDeffer.reject('login error!');
+            }
+            return loginDeffer.promise();
 		};
 
-		return userService;
+		return {
+            handlelogin: handleLogin
+
+        };
 	});
 });

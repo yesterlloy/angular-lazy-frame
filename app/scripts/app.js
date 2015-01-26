@@ -5,10 +5,10 @@
 define([
     'angular',
     'angularUiRouter',
-    'ocLazyLoad',
+    'ocLazyLoad'
 ], function (angular ) {
     'use strict';
 
-    return angular.module('app', [ 'ui.router', 'oc.lazyLoad' ]);
+    return angular.module('app', [ 'ui.router', 'oc.lazyLoad']);
 
 });

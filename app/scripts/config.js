@@ -22,10 +22,11 @@ require.config({
         ocLazyLoad: 'libs/ocLazyLoad/ocLazyLoad.min',
         uiRouterExtras: 'libs/ui-router-extras/ct-ui-router-extras',
         uiRouterExtrasStatevis: 'libs/ui-router-extras-statevis/statevis',
+        ngCookies: 'libs/angular-cookies/angular-cookies',
 
         //utils
-        authorization: 'utils/authorization',
-        principal: 'utils/principal'
+        routingConfig: 'modules/login/routingConfig',
+        authService:'modules/login/authService'
     },
 
     shim: {
@@ -33,6 +34,7 @@ require.config({
 //            deps: ['jquery'],
             exports: 'angular'
         },
+        ngCookies: { deps:['angular']   },
         angularResource: { deps: ['angular'] },
         angularSanitize: { deps: ['angular'] },
         angularUiRouter: {deps: ['angular']},
