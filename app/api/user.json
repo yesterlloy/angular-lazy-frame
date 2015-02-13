@@ -1,0 +1,52 @@
+{
+	"sessionId": 1,
+	"userId": 1,
+	"userName": "admin",
+	"userRole": "admin",
+	"authKey": "",
+	"systems": [
+	{
+		"name": "oms",
+		"alias": "OMS",
+		"modules":[
+			{
+				"name": "oms.home",
+				"alias": "用户概况",
+				"controllers": [] ,
+				"methods": []
+			},
+			{
+				"name": "oms.manage",
+				"alias": "权限管理",
+				"controllers": [
+					{
+						"name": "oms.manage.permission",
+						"alias": "权限管理",
+						"methods": [{
+							"name": "create",
+							"alias": "添加权限"
+						},{
+							"name": "update",
+							"alias": "编辑"
+						},{
+							"name": "read",
+							"alias": "权限列表"
+						},{
+							"name": "delete",
+							"alias": "删除"
+						}]
+					},
+					{
+						"name": "oms.manage.role",
+						"alias": "角色管理",
+						"methods": ["create","update","read","delete"]
+					}	
+				]
+			}
+
+			]
+		}
+
+	]
+
+}

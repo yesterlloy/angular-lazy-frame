@@ -1,0 +1,17 @@
+<ul class="nav nav-pills nav-stacked" id="leftnav">
+
+	<li role="presentation" ng-repeat="nav in navList" ng-class="{active: $state.includes('site.{{nav.name}}')}">
+
+		<a ui-sref="site.{{nav.name}}">{{nav.alias}}</a>
+
+		<ul class="nav nav-pills nav-stacked col-md-11 col-md-offset-1" ng-if="nav.controllers.length>0">
+
+			<li ng-repeat="ctrl in nav.controllers" class="small" ng-class="{active: $state.is('site.{{ctrl.name}}')}">
+				<a ui-sref="site.{{ctrl.name}}">{{ctrl.alias}}</a>
+			</li>
+
+		</ul>
+
+	</li>
+ 
+</ul>
