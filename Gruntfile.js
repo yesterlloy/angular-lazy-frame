@@ -26,13 +26,13 @@ module.exports = function (grunt) {
           // Javascript with standard .min.js naming convention
           {
             cwd: 'bower_components', expand: true, flatten: true,
-            dest: '<%= cvars.app %>/<%= cvars.appjs %>/ext/',
+            dest: '<%= cvars.app %>/libs/',
             src: gruntConfig.bowerFiles
           },
           // CSS with standard .min.css naming convention
           {
             cwd: 'bower_components', expand: true, flatten: true,
-            dest: '<%= cvars.app %>/<%= cvars.appcss %>/ext/',
+            dest: '<%= cvars.app %>/<%= cvars.appcss %>/css/',
             src: gruntConfig.cssFiles
           },
           // CSS Fonts
@@ -213,7 +213,10 @@ module.exports = function (grunt) {
    * setup task
    * Run the initial setup, sourcing all needed upstream dependencies
    */
-  grunt.registerTask('setup', ['bower:setup', 'copy:setup']);
+  grunt.registerTask('setup', [
+    // 'bower:setup', 
+    'copy:setup'
+  ]);
 
 
   /**

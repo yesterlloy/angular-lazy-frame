@@ -11,17 +11,27 @@
   },
   "bowerFiles": [
     "angular/angular.js",
-    "angular-route/angular-route.js",
-    "angularAMD/dist/angularAMD.js",
-    "angularAMD/dist/ngload.js",
-    "requirejs/require.js",
-    "es5-shim/es5-shim.js",
+    "angular-animate/angular-animate.js",
+    "angular-cookie/angular-cookie.js",
+    "angular-strap/dist/angular-strap.js",
+    "angular-strap/dist/angular-strap.tpl.js",
+    "jquery/dist/jquery.js",
     "json3/lib/json3.js",
     "angular-resource/angular-resource.js",
-    "angular-ui-router/release/angular-ui-router.js"
+    "angular-ui-router/release/angular-ui-router.js",
+    "ui-router-extras/release/ct-ui-router-extras.js",
+    "ngDialog/js/ngDialog.js",
+    "lodash/dist/lodash.js",
+    "restangular/dist/restangular.js",
+    "angularAMD/angularAMD.js",
+    "requirejs/require.js",
+    "requirejs-text/text.js"
+
   ],
   "cssFiles": [
-    "bootstrap/dist/css/bootstrap.css"
+    "bootstrap/dist/css/bootstrap.css",
+    "ngDialog/css/ngDialog.css",
+    "ngDialog/css/ngDialog-theme-default.css"
   ],
   "cssFonts": [
     "bootstrap/fonts/glyphicons-halflings-regular.*"
