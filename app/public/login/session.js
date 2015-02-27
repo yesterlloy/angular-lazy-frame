@@ -37,6 +37,7 @@ define(['angularAMD'], function(){
     module.service('Session',['$starSession', function($starSession) {
 
         var session = this;
+        session.defaultState = '';
         session.create = function (user) {
             console.log('session user===', user, $starSession);
             $starSession.create(user);

@@ -24,8 +24,10 @@
     "lodash/dist/lodash.js",
     "restangular/dist/restangular.js",
     "angularAMD/angularAMD.js",
+    "angularAMD/ngload.js",
     "requirejs/require.js",
-    "requirejs-text/text.js"
+    "requirejs-text/text.js",
+    "ngDraggable/ngDraggable.js"
 
   ],
   "cssFiles": [

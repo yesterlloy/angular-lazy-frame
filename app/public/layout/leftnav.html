@@ -1,17 +1,21 @@
-<ul class="nav nav-pills nav-stacked" id="leftnav">
+<div class="list-group col-sm-10">
+    <div class="" ng-repeat="nav in navList">
+        <a class="se-menu list-group-item" ui-sref="site.{{nav.name}}" ng-class="{active: $state.includes('site.{{nav.name}}')}"
+                ng-click="menuClick($event)">
+            <span class="glyphicon glyphicon-{{ nav.icon }}" > </span> {{nav.alias}}
+        </a>
 
-	<li role="presentation" ng-repeat="nav in navList" ng-class="{active: $state.includes('site.{{nav.name}}')}">
 
-		<a ui-sref="site.{{nav.name}}">{{nav.alias}}</a>
+		<ul class="list-unstyled collapse " ng-if="nav.controllers.length>0">
 
-		<ul class="nav nav-pills nav-stacked col-md-11 col-md-offset-1" ng-if="nav.controllers.length>0">
-
-			<li ng-repeat="ctrl in nav.controllers" class="small" ng-class="{active: $state.is('site.{{ctrl.name}}')}">
-				<a ui-sref="site.{{ctrl.name}}">{{ctrl.alias}}</a>
+			<li ng-repeat="ctrl in nav.controllers"  class="se-menu-li">
+				<a ui-sref="site.{{ctrl.name}}" class="" ng-class="{active: $state.is('site.{{ctrl.name}}')}">
+                    <span class="glyphicon glyphicon-{{ ctrl.icon }}" > </span>{{ctrl.alias}}
+                </a>
 			</li>
 
 		</ul>
 
-	</li>
+    </div>
  
-</ul>
+</div>

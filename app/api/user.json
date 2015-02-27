@@ -46,6 +46,19 @@
 
 			]
 		}
+        ,
+        {
+            "name": "adv",
+            "alias": "广告系统",
+            "modules": [
+                {
+                    "name": "adv.home",
+                    "alias": "首页",
+                    "controllers": [],
+                    "methods": []
+                }
+            ]
+        }
 
 	]
 

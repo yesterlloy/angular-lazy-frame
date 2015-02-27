@@ -20,12 +20,31 @@ define(['angularAMD'], function(angularAMD){
 		$scope.navList = [];
 
 		angular.forEach(systems, function(sys){
-			if (('site.'+sys.name) == $state.current.name) {
+			if ( $state.current.name.indexOf(sys.name) > -1 ) {
 				$scope.navList = sys.modules;
 			};
 		});
 
-		console.log('LeftnavCtrl navList',$scope.navList);
+		console.log('LeftnavCtrl navList',$scope.navList );
+
+        $scope.menuClick = function(e){
+            var target = angular.element(e.currentTarget);
+
+            var next = target.next();
+            console.info('target',target,'next',next,next.length>0);
+
+            if( next.length > 0 ){
+                e.preventDefault();
+                if(next.hasClass('collapse')) {
+                    next.removeClass('collapse');
+                }else {
+                    next.addClass('collapse');
+                }
+
+            }
+
+
+        }
 
 
 	});

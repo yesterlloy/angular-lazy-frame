@@ -3,3 +3,26 @@ nav a{outline:0 none;}
 .alert h4{margin-bottom: 0;}
 .pagination{margin:0 0 20px;}
 
+
+.list-unstyled {
+    padding: 5px 0px 0px  30px;
+
+}
+a.se-menu{
+    outline: 0 none;
+}
+.se-menu-li{
+    text-align:center;
+    padding:5px 10px;
+}
+.se-menu-li a.active{
+    color: #555;
+    outline: 0 none;
+}
+
+.list-group ul.list-unstyled{
+    border-color: #ddd;
+    border-width: 1px;
+    border-style: solid;
+}
+

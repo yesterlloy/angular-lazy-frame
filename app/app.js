@@ -122,17 +122,28 @@ function appRun($rootScope, $state, $stateParams, AUTH_EVENTS, USER_ROLES, AuthS
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function(){
         console.log('login success stateProvider',$state);
         var loadStates = function($q, Session){
-            // console.log('loadStates',Session);
-            var d = $q.defer();
 
-            require(["ngload!modules/" + Session.systems[0].name + "/index.js", 'ngload', 'angularAMD'], 
-            function ngloadCallback(result, ngload, angularAMD){
-                // console.log('loadStates ngDialog', ngDialog);
-                angularAMD.processQueue();
-                d.resolve(undefined);
+            var promises = [];
+
+            angular.forEach(Session.systems, function(sys, idx){
+                if(idx == 0){
+                    Session.defaultState = 'site.' + sys.name + '.home';
+                }
+                var d = $q.defer();
+                require(["ngload!modules/" + sys.name + "/states.js", 'ngload', 'angularAMD'],
+                    function ngloadCallback(result, ngload, angularAMD){
+
+                        angularAMD.processQueue();
+                        d.resolve(undefined);
+
+                        return d.promise;
+                    });
+
+                promises.push(d.promise);
 
             });
-            return d.promise;
+
+            return $q.all(promises);
         }
         
         
@@ -140,13 +151,10 @@ function appRun($rootScope, $state, $stateParams, AUTH_EVENTS, USER_ROLES, AuthS
         
 
         result.then(function(){
-            
-
-
-            console.log('login success app module===', app);
-            $state.go('site.' + Session.systems[0].name);
+            console.log('login success; site.oms=', $state.get('site.oms'));
+            $state.go( Session.defaultState );
         },function(){
-            // console.log('login error states===',$state.get() );
+            console.log('login error states===',$state.get() );
             $state.go('public.login');
         });
         

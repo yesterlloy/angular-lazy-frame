@@ -1,6 +1,6 @@
-define(['../states', './service'], function(module){
+define(['../module', './service'], function(module){
 	'use strict';
-console.log('module',module);
+console.log('permissionCtrl module',module);
 	module.controller('PermissionCtrl', ['$scope', 'ManageService', 'ngDialog', function($scope, ManageService, ngDialog){
 
 		var permissionsCtrl = $scope.permissionsCtrl = {};
