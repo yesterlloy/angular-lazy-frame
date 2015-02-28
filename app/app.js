@@ -9,11 +9,13 @@ define([
     'angularUiRouter',
     'uiRouterExtras',
     'Session',
-    'ngDialog'
+    'ngDialog',
+    'spin',
+    'angularSpinner'
 ], function (angular, angularAMD, AuthService) {
     'use strict';
 
-    var app = angular.module('app', ['star.session', 'ui.router', 'ct.ui.router.extras', 'ngDialog']);
+    var app = angular.module('app', ['star.session', 'ui.router', 'ct.ui.router.extras', 'ngDialog', 'angularSpinner']);
 
 
 
@@ -93,13 +95,8 @@ function appConfig($urlRouterProvider, $stateProvider, USER_ROLES, $httpProvider
         },
         data: {
             authorizedRoles: []
-        },
-        // resolve: {
-        //     "Session": "Session",
-        //     "loadRole": function(Session, $q){
-        //         console.log('site resolve',Session);
-        //     }
-        // }
+        }
+
     });
 
 
@@ -146,9 +143,7 @@ function appRun($rootScope, $state, $stateParams, AUTH_EVENTS, USER_ROLES, AuthS
             return $q.all(promises);
         }
         
-        
         var result = loadStates($q, Session);
-        
 
         result.then(function(){
             console.log('login success; site.oms=', $state.get('site.oms'));

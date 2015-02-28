@@ -23,7 +23,9 @@ require.config({
 
         angularUiRouter: 'libs/angular-ui-router',
         uiRouterExtras: 'libs/ct-ui-router-extras',
-        
+
+        spin: 'libs/spin',
+        angularSpinner: 'libs/angular-spinner',
 
         angularResource: 'libs/angular-resource',
         angularSanitize: 'libs/angular-sanitize',
@@ -49,6 +51,8 @@ require.config({
         ngload: { deps: ['angularAMD']},
         ngDialog: {deps: ['angular', 'angularAMD'], exports: 'ngDialog'},
         ngAnimate: { deps: ['angular'] },
+
+        angularSpinner: { deps: ['angular', 'spin'] },
 
         ngCookies: { deps:['angular']   },
         angularResource: { deps: ['angular'] },

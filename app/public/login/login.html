@@ -5,9 +5,9 @@
 
 <div class="col-md-4 col-sd-8" >
 
-	<div class="panel panel-primary">
+	<div class="panel panel-primary" >
 		<div class="panel-heading text-center"><span class="glyphicon glyphicon-lock"></span>手机电视--OMS</div>
-		<div class="panel-body">
+		<div class="panel-body" ng-show="!loading">
 			<form role="form">
 				<div class="form-group">
 					<label><h2></h2></label>
@@ -29,6 +29,13 @@
 				</div>
 			</form>
 		</div>
+        <div class="panel-body " ng-show="loading">
+            <div us-spinner="{radius:30,width:10,length:20}" style="height: 190px;"></div>
+
+            <div class="text-center">
+                <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+            </div>
+        </div>
 	</div>
 
 </div>

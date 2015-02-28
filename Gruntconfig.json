@@ -27,7 +27,9 @@
     "angularAMD/ngload.js",
     "requirejs/require.js",
     "requirejs-text/text.js",
-    "ngDraggable/ngDraggable.js"
+    "ngDraggable/ngDraggable.js",
+    "spin.js/spin.js",
+    "angular-spinner/angular-spinner.js"
 
   ],
   "cssFiles": [

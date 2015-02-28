@@ -59,35 +59,20 @@ define([
 
             };
 
-            angular.forEach(session.systems, function(sys){
-
-                if(undefined != stateFactory['site.' + sys.name]){
-
-//                    console.log('sys in adv', stateFactory['site.' + sys.name]);
-
-                    $stateProvider.state(stateFactory['site.' + sys.name]);
-
-                    if( sys.modules.length > 0 ){
-                        angular.forEach(sys.modules, function(module, i){
-                            if( i == 0 ){
-                                defaultState = 'site.' + module.name;
-                            }
-
-//                            console.log('module', stateFactory['site.' + module.name]);
-                            $stateProvider.state(stateFactory['site.' + module.name]);
-
-                            if( module.controllers.length > 0 ){
-                                angular.forEach(module.controllers, function(ctrl){
-//                                    console.log('module ctrl', stateFactory['site.' + ctrl.name]);
-
-                                    $stateProvider.state(stateFactory['site.' + ctrl.name]);
-                                });
-                            }
-                        });
+            function setStates(objs){
+                angular.forEach(objs, function(obj){
+                    if(undefined !== stateFactory['site.' + obj.name]){
+                        $stateProvider.state(stateFactory['site.' + obj.name]);
+                        if(undefined !== obj.modules && obj.modules.length > 0){
+                            setStates(obj.modules);
+                        }
+                        if(undefined !== obj.controllers && obj.controllers.length > 0){
+                            setStates(obj.controllers);
+                        }
                     }
-
-                }
-            });
+                });
+            }
+            setStates(session.systems);
 
         }]);
 

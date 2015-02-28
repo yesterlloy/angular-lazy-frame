@@ -29,8 +29,9 @@ angularAMD.factory('AuthService',['$http', 'Session', '$q', function($http, Sess
                     Session.create(user);
                     d.resolve(user);
                 });
+//            d.reject('no reason');
             
-        },1000);
+        },2000);
 
         return d.promise;
     };
