@@ -15,6 +15,8 @@ require.config({
         ngDialog: "libs/ngDialog",
         text: "libs/text",
         ngAnimate: "libs/angular-animate",
+        angularStrap: "libs/angular-strap",
+        angularStrapTpl: "libs/angular-strap.tpl",
 
         Session: "public/login/session",
         AuthService: "public/login/authService",
@@ -38,6 +40,7 @@ require.config({
         ngCookies: 'libs/angular-cookie',
 
         //utils
+        utils: 'utils/utils',
         routingConfig: 'public/login/routingConfig',
         authService:'public/login/authService'
     },
@@ -48,11 +51,15 @@ require.config({
             exports: 'angular'
         },
         angularAMD: { deps:['angular']},
+        angularStrap: { deps:['angular']},
+        angularStrapTpl: { deps:['angular']},
         ngload: { deps: ['angularAMD']},
         ngDialog: {deps: ['angular', 'angularAMD'], exports: 'ngDialog'},
         ngAnimate: { deps: ['angular'] },
 
         angularSpinner: { deps: ['angular', 'spin'] },
+
+        utils: { deps: ['angular', 'angularAMD', 'ngDialog'] },
 
         ngCookies: { deps:['angular']   },
         angularResource: { deps: ['angular'] },

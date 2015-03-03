@@ -1,10 +1,25 @@
-define(['../module', './service'], function(module){
+define(['../module', './service', 'utils'], function(module){
 	'use strict';
-console.log('permissionCtrl module',module);
-	module.controller('PermissionCtrl', ['$scope', 'ManageService', 'ngDialog', function($scope, ManageService, ngDialog){
+	module.controller('PermissionCtrl', ['$scope', 'ManageService', 'ngDialog', 'usSpinnerService', 'StarsUtils',
+        function($scope, ManageService, ngDialog, usSpinnerService, StarsUtils){
+
+        $scope.loading_list = true;
+        $scope.processing_delete = false;
+        $scope.search_error = false;
 
 		var permissionsCtrl = $scope.permissionsCtrl = {};
-		var permissions = $scope.permissions = ManageService.getPermissions();
+		var permissions = $scope.permissions = [];
+
+        ManageService.getPermissions().then(function(data){
+            console.log('getpermissions',data);
+            ManageService.permissions = data;
+            $scope.loading_list = false;
+            $scope.permissions = data;
+        },function(data){
+            $scope.loading_list = false;
+            alert('error');
+        });
+        console.info('permissions',permissions);
 
 		permissionsCtrl.createNew = function(){
 			console.info('createNew',ngDialog);
@@ -33,10 +48,34 @@ console.log('permissionCtrl module',module);
 			});
 		};
 
-		permissionsCtrl.deleteItem = function(){
+		permissionsCtrl.deleteItem = function(id, e){
+            StarsUtils.confirm('确定删除吗？','删除','不删除') .then(function(){
+                $scope.processing_delete = true;
+
+                var target = e.currentTarget || e.target;
+                angular.element(target).css('display','none').next().css('display','inline-block');
+                usSpinnerService.spin('spinner_'+id);
+
+                ManageService.deletePermission(id).then(function(list){
+                    console.log('delete in ctrl',list);
+                    $scope.permissions = list;
+                },function(reason){
+                    StarsUtils.alert('删除失败:'+reason);
+                    $scope.processing_delete = true;
+
+                    var target = e.currentTarget || e.target;
+                    angular.element(target).css('display','inline-block').next().css('display','none');
+                    usSpinnerService.stop('spinner_'+id);
+                });
+            })
+
 
 		};
-		
+
+        permissionsCtrl.search = function(){
+            $scope.search_error = true;
+        };
+
 	}]);
 
 });

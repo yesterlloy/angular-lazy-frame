@@ -35,7 +35,8 @@
   "cssFiles": [
     "bootstrap/dist/css/bootstrap.css",
     "ngDialog/css/ngDialog.css",
-    "ngDialog/css/ngDialog-theme-default.css"
+    "ngDialog/css/ngDialog-theme-default.css",
+    "angular-motion/dist/angular-motion.css"
   ],
   "cssFonts": [
     "bootstrap/fonts/glyphicons-halflings-regular.*"

@@ -21,35 +21,50 @@
 				<input type="text" class="form-control" id="exampleInputPassword2" placeholder="操作名称">
 			</div>
 
-			<button type="submit" class="btn btn-primary">搜索</button>
+			<button type="submit" class="btn btn-primary" ng-click="permissionsCtrl.search()">搜索</button>
 		</form>
 	</div>
 
 	
 </div>
 
-<div id="alert_info">
-	<div class="clearfix" style="margin-bottom: 20px;"></div>
-	<div class="alert alert-danger">afe wefw fwrwre dwfew</div>
+<div class="clearfix" style="margin-bottom: 20px;"></div>
+
+<div id="alert_info" ng-show="search_error">
+	<div class="alert alert-danger">test search error!</div>
 </div>
 
 
 <table class="table table-bordered table-hover">
 	<tr>
-		<th><input type="checkbox" ng-click="checkbox('perm_id')" /></th>
-		<th>功能名称</th>
-		<th>操作名称</th>
-		<th>方法名</th>
-		<th>操作</th>
+		<th width="10%"><input type="checkbox" ng-click="checkbox('perm_id')" /></th>
+		<th width="20%">功能名称</th>
+		<th width="20%">操作名称</th>
+		<th width="20%">方法名</th>
+		<th width="30%">操作</th>
 
 	</tr>
+
+    <tr>
+        <td colspan="5" ng-show="loading_list">
+            <div style="position: relative;height:50px;">
+                <span us-spinner > </span>
+            </div>
+        </td>
+    </tr>
 
 	<tr ng-repeat="perm in permissions">
 		<td><input type="checkbox" name="perm_id" id="perm_{{perm.id}}" value="{{perm.id}}"> </td>
 		<td>{{perm.name}}</td>
 		<td>{{perm.operation}}</td>
 		<td>{{perm.method}}</td>
-		<td><button class="btn btn-default" ng-click="permissionsCtrl.editItem(perm)">编辑</button><button class="btn btn-default" ng-click="permissionsCtrl.deleteItem(perm.id)">删除</button></td>
+		<td>
+            <button class="btn btn-default" ng-click="permissionsCtrl.editItem(perm)">编辑</button>
+            <button class="btn btn-default" ng-click="permissionsCtrl.deleteItem(perm.id, $event)" >删除</button>
+            <span class="btn btn-default"  style="position: relative;height:35px;width:4em;display:none;">
+                <span us-spinner="{radius:1,lenth:4,width:2}" spinner-key="spinner_{{perm.id}}"></span>
+            </span>
+        </td>
 	</tr>
 
 

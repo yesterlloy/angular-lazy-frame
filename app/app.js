@@ -11,11 +11,23 @@ define([
     'Session',
     'ngDialog',
     'spin',
-    'angularSpinner'
+    'angularSpinner',
+    'ngAnimate',
+    'angularStrap',
+    'angularStrapTpl',
+    'utils'
 ], function (angular, angularAMD, AuthService) {
     'use strict';
 
-    var app = angular.module('app', ['star.session', 'ui.router', 'ct.ui.router.extras', 'ngDialog', 'angularSpinner']);
+    var app = angular.module('app', [
+        'stars.session',
+        'stars.utils',
+        'ui.router',
+        'ct.ui.router.extras',
+        'ngDialog',
+        'angularSpinner',
+        'mgcrea.ngStrap'
+    ]);
 
 
 

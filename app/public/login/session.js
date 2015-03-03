@@ -1,6 +1,6 @@
 define(['angularAMD'], function(){
 
-    var module = angular.module('star.session',[]);
+    var module = angular.module('stars.session',[]);
 
     module.provider('$starSession', function(){
         var starSession = {};
