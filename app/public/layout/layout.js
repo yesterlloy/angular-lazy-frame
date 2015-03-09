@@ -36,8 +36,10 @@ define(['angularAMD'], function(angularAMD){
             if( next.length > 0 ){
                 e.preventDefault();
                 if(next.hasClass('collapse')) {
+                    target.find('span').attr('class','glyphicon glyphicon-triangle-bottom')
                     next.removeClass('collapse');
                 }else {
+                    target.find('span').attr('class','glyphicon glyphicon-triangle-right')
                     next.addClass('collapse');
                 }
 

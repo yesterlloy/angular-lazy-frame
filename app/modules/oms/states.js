@@ -95,6 +95,21 @@ define([
                         }
                     }
 
+                },
+                "site.oms.apps": {
+                    name: 'site.oms.apps',
+                    url: '/apps',
+                    views: {
+                        "content@site": {
+                            templateUrl: "modules/oms/apps/apps.html",
+                            controller: "AppsCtrl"
+                        }
+                    },
+                    resolve: {
+                        "loadCtrl": function($q){
+                            return loadCtrl($q, ['modules/oms/apps/apps.js']);
+                        }
+                    }
                 }
             };
 

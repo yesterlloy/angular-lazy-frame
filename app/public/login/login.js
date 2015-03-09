@@ -5,6 +5,8 @@ define(['angularAMD', 'AuthService'], function(angularAMD, AuthService){
         
         $scope.rememberme = true;
         $scope.loading = false;
+        $scope.has_error = false;
+        $scope.error_msg = '';
 
         $scope.username = 'admin';
         $scope.password = '123456';
@@ -20,13 +22,18 @@ define(['angularAMD', 'AuthService'], function(angularAMD, AuthService){
         $scope.login = function () {
 
             $scope.loading = true;
+            $scope.has_error = false;
+            $scope.error_msg = '';
 
             AuthService.login($scope.credentials).then(function (user) {
                 console.info('user',user);
                 $scope.setCurrentUser(user);
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-            }, function () {
+            }, function (info) {
+                console.info('login error',info);
                 $scope.loading = false;
+                $scope.has_error = true;
+                $scope.error_msg = 'code' + info.data.code + ':' + info.data.message;
                 $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });
         };

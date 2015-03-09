@@ -41,6 +41,7 @@ require.config({
 
         //utils
         utils: 'utils/utils',
+        dirPagination: 'utils/pagination/pagination',
         routingConfig: 'public/login/routingConfig',
         authService:'public/login/authService'
     },
@@ -60,6 +61,7 @@ require.config({
         angularSpinner: { deps: ['angular', 'spin'] },
 
         utils: { deps: ['angular', 'angularAMD', 'ngDialog'] },
+        dirPagination: { deps: ['angular', 'angularAMD'] },
 
         ngCookies: { deps:['angular']   },
         angularResource: { deps: ['angular'] },

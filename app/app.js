@@ -15,7 +15,8 @@ define([
     'ngAnimate',
     'angularStrap',
     'angularStrapTpl',
-    'utils'
+    'utils',
+    'dirPagination'
 ], function (angular, angularAMD, AuthService) {
     'use strict';
 
@@ -26,7 +27,8 @@ define([
         'ct.ui.router.extras',
         'ngDialog',
         'angularSpinner',
-        'mgcrea.ngStrap'
+        'mgcrea.ngStrap',
+        'stars.utils.dirPagination'
     ]);
 
 
@@ -54,16 +56,20 @@ app.config(appConfig)
 
 
 
-appConfig.$inject = ['$urlRouterProvider', '$stateProvider', 'USER_ROLES', '$httpProvider', '$futureStateProvider', '$controllerProvider'];
+appConfig.$inject = ['$urlRouterProvider', '$stateProvider', 'USER_ROLES', '$httpProvider', 'paginationTemplateProvider'];
 
-function appConfig($urlRouterProvider, $stateProvider, USER_ROLES, $httpProvider, $futureStateProvider, $controllerProvider){
+function appConfig($urlRouterProvider, $stateProvider, USER_ROLES, $httpProvider, paginationTemplateProvider){
+
+    paginationTemplateProvider.setPath('utils/pagination/pagination.tpl.html');
+
+    //http cross doman
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
 
-    $futureStateProvider.stateFactory('ngload', ngloadStateFactory); // register AngularAMD ngload state factory
-      
-
-
+    //default route
     $urlRouterProvider.otherwise('/login');
+
     // Public routes
     $stateProvider
         .state('public', {

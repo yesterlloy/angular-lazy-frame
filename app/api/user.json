@@ -42,7 +42,13 @@
 						"methods": ["create","update","read","delete"]
 					}	
 				]
-			}
+			},
+            {
+                "name": "oms.apps",
+                "alias": "应用管理",
+                "controllers": [],
+                "methods": []
+            }
 
 			]
 		}

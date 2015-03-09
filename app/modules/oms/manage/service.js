@@ -37,15 +37,20 @@ define(['angularAMD'], function(angularAMD){
 	manageService.getPermissions = function(){
         var d = $q.defer();
 		// /permissions
-        setTimeout(function(){
-            $http.get( 'api/permission.json?_=' + (new Date()).getTime() )
-                .success(function(data){
-                    manageService.permissions = data;
-                    d.resolve(data);
-                });
-//            d.reject('no reason');
+//        setTimeout(function(){
+//            $http.get( 'api/permission.json?_=' + (new Date()).getTime() )
+//                .success(function(data){
+//                    manageService.permissions = data;
+//                    d.resolve(data);
+//                });
 
-        },2000);
+//        },2000);
+
+        $http.get('http://api.oms.com/admin/pers')
+            .success(function(data){
+                manageService.permissions = data.
+                d.resolve(data);
+            });
 		return d.promise;
 	}
 

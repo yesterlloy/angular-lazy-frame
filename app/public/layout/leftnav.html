@@ -2,7 +2,7 @@
     <div class="" ng-repeat="nav in navList">
         <a class="se-menu list-group-item" ui-sref="site.{{nav.name}}" ng-class="{active: $state.includes('site.{{nav.name}}')}"
                 ng-click="menuClick($event)">
-            <span class="glyphicon glyphicon-{{ nav.icon }}" > </span> {{nav.alias}}
+            <span class=" glyphicon {{ nav.controllers.length>0 ? 'glyphicon-triangle-right' : ''}}" aria-hidden="true" > </span> {{nav.alias}}
         </a>
 
 

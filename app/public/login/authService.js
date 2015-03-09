@@ -5,22 +5,20 @@ angularAMD.factory('AuthService',['$http', 'Session', '$q', function($http, Sess
 
     var authService = {};
 
-    authService.login = function (credentials) {
+    authService.login = function (user) {
         
 
-        // $http({
-        //     url: '',
-        //     method: "POST",
-        //     headers: {
-        //         'Authorization': 'Basic fdfwoeigjiewoe',
-        //         'Content-Type': 'application/x-www-form-urlencoded'
-        //     },
-        //         data: {
-        //             'Code': 'test code'
-        //         }
-        // });
+//        return $http({
+//            url: 'http://api.oms.com/admin/login/login',
+//            method: "POST",
+//            headers: {
+//                 'Authorization': 'Basic fdfwoeigjiewoe',
+//                 'Content-Type': 'application/x-www-form-urlencoded'
+//             },
+//            data:user,
+//            withCredentials: true
+//        });
 
-        
         var d = $q.defer();
 
         setTimeout(function(){
@@ -28,9 +26,11 @@ angularAMD.factory('AuthService',['$http', 'Session', '$q', function($http, Sess
                 .success(function(user){
                     Session.create(user);
                     d.resolve(user);
+                })
+                .error(function(info){
+                    d.reject({"data": {"code":404,"message":"error message"}});
                 });
-//            d.reject('no reason');
-            
+
         },2000);
 
         return d.promise;
